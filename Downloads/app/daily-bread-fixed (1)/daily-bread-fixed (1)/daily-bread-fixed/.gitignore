@@ -1,0 +1,84 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+
+# Windows system files that cause casing issues
+AppData/
+*.dat
+*.odlgz
+*.jtx
+*.log
+*.txt
+*.index
+*.ft
+*.intermediate.txt
+
+# Windows specific exclusions
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# OneDrive
+OneDrive/
+
+# Windows Store
+Packages/
+
+# Windows Search
+Microsoft.Windows.Search*/
+
+# Cursor IDE
+Cursor/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Windows system directories
+AppData/Local/
+AppData/Roaming/
