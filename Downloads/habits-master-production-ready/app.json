@@ -1,0 +1,78 @@
+{
+  "expo": {
+    "name": "FaithHabits",
+    "slug": "FaithHabits",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/habits.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/habits-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#5E72E4"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.faithhabits.app",
+      "buildNumber": "3",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app uses the microphone for audio recording in prayer sessions.",
+        "NSCameraUsageDescription": "This app uses the camera to add photos to prayer requests.",
+        "NSUserTrackingUsageDescription": "This app would like to track you across apps and websites to provide personalized ads and improve your experience.",
+        "GADApplicationIdentifier": "ca-app-pub-2813380177518944~6924878918",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/habits-adaptive.png",
+        "backgroundColor": "#5E72E4"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.faithhabits.app",
+      "permissions": [
+        "RECORD_AUDIO",
+        "CAMERA",
+        "NOTIFICATIONS",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2813380177518944~6924278918"
+      }
+    },
+    "web": {
+      "favicon": "./assets/habits.png"
+    },
+    "plugins": [
+      "expo-av",
+      "expo-notifications",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/habits-notification.png",
+          "color": "#5E72E4",
+          "sounds": [
+            "./assets/notification-sound.wav"
+          ]
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "iosAppId": "ca-app-pub-2813380177518944~6924878918",
+          "androidAppId": "ca-app-pub-2813380177518944~6924278918",
+          "android_app_id": "ca-app-pub-2813380177518944~6924278918",
+          "ios_app_id": "ca-app-pub-2813380177518944~6924878918"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2bf4290f-a300-4b10-9c13-635e38537dc7"
+      }
+    }
+  }
+}
