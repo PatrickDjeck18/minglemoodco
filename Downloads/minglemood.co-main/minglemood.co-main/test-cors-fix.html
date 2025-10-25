@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Fix Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button { padding: 10px 20px; margin: 5px; }
+        .log { background: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; margin: 10px 0; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>CORS Fix Test</h1>
+    <button onclick="testCORS()">Test CORS Headers</button>
+    <button onclick="testEvents()">Test Events Endpoint</button>
+    <button onclick="testAdmin()">Test Admin Endpoint</button>
+    <div id="result"></div>
+    <div id="log" class="log"></div>
+
+    <script>
+        const API_BASE = 'https://vijinjtpbrfkyjrzilnm.supabase.co/functions/v1/make-server-4bcc747c';
+        
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function showResult(content, type = 'info') {
+            const element = document.getElementById('result');
+            element.innerHTML = `<div class="result ${type}">${content}</div>`;
+        }
+
+        async function testCORS() {
+            log('Testing CORS headers...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                
+                log(`Response status: ${response.status}`);
+                log(`Response headers: ${[...response.headers.entries()].map(([k, v]) => `${k}: ${v}`).join(', ')}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`Response data: ${JSON.stringify(data)}`);
+                    showResult('✅ CORS headers are working!', 'success');
+                } else {
+                    showResult(`❌ Health check failed with status: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ CORS Error: ${error.message}`);
+                showResult(`❌ CORS Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testEvents() {
+            log('Testing Events endpoint...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/events`);
+                
+                log(`Events response status: ${response.status}`);
+                log(`Events response headers: ${[...response.headers.entries()].map(([k, v]) => `${k}: ${v}`).join(', ')}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`Events data: ${JSON.stringify(data).substring(0, 200)}...`);
+                    showResult('✅ Events endpoint is working!', 'success');
+                } else {
+                    showResult(`❌ Events endpoint failed with status: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Events Error: ${error.message}`);
+                showResult(`❌ Events Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAdmin() {
+            log('Testing Admin endpoint...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/admin/users`);
+                
+                log(`Admin response status: ${response.status}`);
+                log(`Admin response headers: ${[...response.headers.entries()].map(([k, v]) => `${k}: ${v}`).join(', ')}`);
+                
+                if (response.status === 403) {
+                    showResult('✅ Admin endpoint is working (403 Forbidden is expected without auth)', 'success');
+                } else if (response.ok) {
+                    showResult('✅ Admin endpoint is working!', 'success');
+                } else {
+                    showResult(`⚠️ Admin endpoint returned status: ${response.status}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Admin Error: ${error.message}`);
+                showResult(`❌ Admin Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run test on page load
+        window.addEventListener('load', () => {
+            log('🚀 Test page loaded. Ready to test CORS fixes.');
+            log('Click the test buttons above to verify the CORS and HTTP 431 fixes.');
+        });
+    </script>
+</body>
+</html>
